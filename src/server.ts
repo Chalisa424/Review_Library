@@ -28,6 +28,14 @@ app.get("/books/:id",(req,res) =>{
   }
 })
 
+app.post("/books",(req, res) =>{
+    const newBook: Book = req.body;
+    newBook.id = books.length +1;
+    books.push(newBook);
+    res.json(newBook);
+    
+})
+
 app.listen(port, () => {
     console.log(`App is listening at http://localhost:${port}`);
 })
