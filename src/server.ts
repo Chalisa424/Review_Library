@@ -6,8 +6,14 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Welcome to My Library");
 })
 
-app.get("/books", (req, res) => {
-    res.send(books)
+app.get("/books",(req,res) =>{
+    if(req.query.title){
+        const title = req.query.title as string;
+        const filteredBooks = books.filter(book => book.title.toLowerCase().startsWith(title.toLowerCase()));
+        res.json(filteredBooks);
+    }else{
+    res.json(books);   
+    } 
 })
 
 app.listen(port, () => {
