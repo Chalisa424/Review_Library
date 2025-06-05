@@ -2,6 +2,8 @@ import express, { Request, Response } from 'express';
 const app = express();
 const port = 3001;
 
+app.use(express.json());
+
 app.get("/", (req: Request, res: Response) => {
     res.send("Welcome to My Library");
 })
@@ -9,11 +11,21 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/books",(req,res) =>{
     if(req.query.title){
         const title = req.query.title as string;
-        const filteredBooks = books.filter(book => book.title.toLowerCase().startsWith(title.toLowerCase()));
+        const filteredBooks = books.filter((book) => book.title.toLowerCase().startsWith(title.toLowerCase()));
         res.json(filteredBooks);
     }else{
     res.json(books);   
     } 
+})
+
+app.get("/books/:id",(req,res) =>{
+  const id = parseInt(req.params.id);
+  const book = books.find((book) => book.id === id);
+  if(book){
+    res.json(book);
+  }else{
+    res.status(404).json("Book not found");
+  }
 })
 
 app.listen(port, () => {
