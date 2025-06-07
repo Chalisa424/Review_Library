@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { getBookByTitle, getAllBooks , getBookById, addBook } from './service/BooksService';
-import type { Book } from './service/BooksService';
+import type { Book } from './model/Book';
 const app = express();
 const port = 3001;
 
@@ -32,7 +32,7 @@ app.get("/books/:id",async (req,res) =>{
 
 app.post("/books",async (req, res) =>{
     const newBook: Book = req.body;
-    await addBook(newBook)
+    addBook(newBook)
     res.json(newBook);
     
 })
