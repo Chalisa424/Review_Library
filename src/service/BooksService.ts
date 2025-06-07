@@ -51,22 +51,22 @@ export const books: Book [] = [
     }
     ]
 
-    export function getBookByTitle(title : string) : Book[]{
+    export function getBookByTitle(title : string) : Promise <Book[]>{
         const filteredBooks = books.filter((book)=> book.title.toLowerCase().startsWith(title.toLowerCase()));
-        return filteredBooks;
+        return Promise.resolve(filteredBooks);
     }
 
-    export function getAllBooks(): Book[]{
-        return books;
+    export function getAllBooks(): Promise <Book[]>{
+        return Promise.resolve(books);
     }
 
-    export function getBookById(id: number): Book | undefined {
+    export function getBookById(id: number): Promise<Book | undefined> {
         const book = books.find((book) => book.id === id);
-        return book;
+        return Promise.resolve(book);
     }
 
-    export function addBook(newBook: Book): Book {
+    export function addBook(newBook: Book): Promise <Book> {
         newBook.id = books.length + 1;
         books.push(newBook);
-        return newBook;
+        return Promise.resolve(newBook);
     }

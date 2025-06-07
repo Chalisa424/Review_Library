@@ -10,19 +10,19 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Welcome to My Library");
 })
 
-app.get("/books",(req,res) =>{
+app.get("/books",async (req,res) =>{
     if(req.query.title){
         const title = req.query.title as string;
-        const filteredBooks = getBookByTitle(title);
+        const filteredBooks = await getBookByTitle(title);
         res.json(filteredBooks);
     }else{
-    res.json(getAllBooks());   
+    res.json(await getAllBooks());   
     } 
 })
 
-app.get("/books/:id",(req,res) =>{
+app.get("/books/:id",async (req,res) =>{
   const id = parseInt(req.params.id);
-  const book = getBookById(id);
+  const book = await getBookById(id);
   if(book){
     res.json(book);
   }else{
@@ -30,9 +30,9 @@ app.get("/books/:id",(req,res) =>{
   }
 })
 
-app.post("/books",(req, res) =>{
+app.post("/books",async (req, res) =>{
     const newBook: Book = req.body;
-    addBook(newBook)
+    await addBook(newBook)
     res.json(newBook);
     
 })
