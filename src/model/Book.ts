@@ -3,5 +3,5 @@ export interface Book {
     title: string;
     Author_name: string;
     description: string;
-    groups: string;
+    genre: string;
 }
